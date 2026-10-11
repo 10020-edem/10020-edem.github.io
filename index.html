@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boutique numérique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fond:#F4F7F5;
+  --carte:#FFFFFF;
+  --vert:#0E4D3A;
+  --vert-clair:#DCEBE4;
+  --encre:#14201B;
+  --gris:#5B6B63;
+  --ligne:#D5DFD9;
+  --jaune:#F5B82E;
+  --rouge:#C8402B;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Source Sans 3",system-ui,sans-serif;background:var(--fond);color:var(--encre);line-height:1.55;font-size:17px}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.12;letter-spacing:-.01em}
+a{color:inherit}
+button,input,select{font:inherit}
+:focus-visible{outline:3px solid var(--jaune);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+/* En-tête */
+header{background:var(--vert);color:#fff}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:21px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:26px;height:26px;border-radius:7px;background:var(--jaune);display:inline-block;position:relative}
+.logo i::after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--vert)}
+nav{display:flex;gap:22px;font-size:15px}
+nav a{text-decoration:none;opacity:.88}
+nav a:hover{opacity:1;text-decoration:underline}
+
+/* Produit */
+.produit{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:36px;padding:36px 0 24px;align-items:start}
+.couverture{aspect-ratio:16/10;border-radius:var(--r);overflow:hidden;position:relative;background:var(--vert);color:#fff;display:flex;align-items:flex-end;padding:28px}
+.couverture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.couverture .motif{position:absolute;inset:0;opacity:.9}
+.couverture .titre{position:relative;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(28px,5vw,48px);line-height:1.02;max-width:12ch}
+.couverture .badge{position:absolute;top:20px;right:20px;background:var(--jaune);color:var(--encre);font-weight:700;border-radius:999px;padding:6px 14px;font-size:15px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;font-size:15px;color:var(--gris)}
+.meta strong{color:var(--encre)}
+h1{font-size:clamp(28px,4vw,40px);margin:22px 0 8px}
+.note{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--gris)}
+.pastille{background:var(--vert-clair);color:var(--vert);font-weight:700;border-radius:8px;padding:2px 9px}
+
+/* Carte d'achat */
+.achat{background:var(--carte);border:1px solid var(--ligne);border-radius:var(--r);padding:24px;position:sticky;top:20px}
+.prix-ligne{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.prix{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:38px}
+.prix-barre{color:var(--gris);text-decoration:line-through;font-size:18px}
+.remise{background:var(--rouge);color:#fff;font-weight:700;border-radius:6px;padding:1px 8px;font-size:14px}
+.btn{display:block;width:100%;border:0;border-radius:12px;background:var(--vert);color:#fff;font-weight:700;font-size:18px;padding:15px 18px;cursor:pointer;text-align:center;text-decoration:none}
+.btn:hover{background:#0a3b2c}
+.btn.second{background:transparent;color:var(--vert);border:2px solid var(--vert);margin-top:10px}
+.btn.second:hover{background:var(--vert-clair)}
+.achat ul{list-style:none;margin:18px 0 0;display:grid;gap:9px;font-size:15.5px}
+.achat li{display:flex;gap:10px}
+.achat li::before{content:"✓";color:var(--vert);font-weight:800}
+.paiements{margin-top:20px;padding-top:18px;border-top:1px solid var(--ligne)}
+.paiements p{font-size:14px;color:var(--gris);margin-bottom:10px}
+.puces{display:flex;flex-wrap:wrap;gap:8px}
+.puce{border:1px solid var(--ligne);border-radius:8px;padding:4px 10px;font-size:14px;font-weight:600;background:var(--fond)}
+
+/* Sections */
+section{padding:30px 0}
+section h2{font-size:28px;margin-bottom:16px}
+.texte{max-width:68ch}
+.texte p+p{margin-top:14px}
+.apercu{background:var(--carte);border:1px solid var(--ligne);border-radius:var(--r);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.apercu strong{display:block}
+.apercu span{color:var(--gris);font-size:15px}
+.apercu a{background:var(--vert-clair);color:var(--vert);font-weight:700;border-radius:10px;padding:10px 16px;text-decoration:none}
+.contenu{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.contenu div{background:var(--carte);border:1px solid var(--ligne);border-radius:var(--r);padding:18px}
+.contenu h3{font-size:19px;margin-bottom:6px}
+.contenu p{color:var(--gris);font-size:15.5px}
+.etapes{counter-reset:e;display:grid;gap:12px;max-width:68ch;list-style:none}
+.etapes li{counter-increment:e;display:flex;gap:14px;align-items:flex-start}
+.etapes li::before{content:counter(e);flex:none;width:32px;height:32px;border-radius:50%;background:var(--vert);color:#fff;font-weight:700;display:grid;place-items:center}
+.vendeur{display:flex;gap:18px;align-items:flex-start;background:var(--carte);border:1px solid var(--ligne);border-radius:var(--r);padding:22px}
+.avatar{flex:none;width:58px;height:58px;border-radius:50%;background:var(--jaune);display:grid;place-items:center;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:22px}
+.vendeur .stats{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px;font-size:15px;color:var(--gris)}
+.avis-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.avis{background:var(--carte);border:1px solid var(--ligne);border-radius:var(--r);padding:18px}
+.avis header{background:none;color:inherit;display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--gris);margin-bottom:6px}
+.avis header b{color:var(--encre)}
+.etoiles{color:var(--jaune);letter-spacing:2px}
+.autres{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.mini{background:var(--carte);border:1px solid var(--ligne);border-radius:var(--r);overflow:hidden;text-decoration:none;display:flex;flex-direction:column}
+.mini .vignette{aspect-ratio:16/9;display:flex;align-items:flex-end;padding:14px;color:#fff;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:19px;line-height:1.1}
+.mini .corps{padding:14px 16px;display:grid;gap:6px}
+.mini h3{font-size:17px}
+footer{background:var(--encre);color:#C9D4CE;margin-top:30px;padding:36px 0 90px;font-size:14.5px}
+footer .liens{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:16px}
+footer a{color:#fff}
+footer p{max-width:80ch;opacity:.8}
+
+/* Barre mobile */
+.barre{display:none}
+
+/* Fenêtre de commande */
+dialog{border:0;border-radius:18px;padding:0;width:min(480px,calc(100% - 24px));margin:auto;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(10,25,20,.6)}
+.modale{padding:26px}
+.modale h2{font-size:24px;margin-bottom:4px}
+.modale .recap{color:var(--gris);margin-bottom:18px;font-size:15.5px}
+.champ{display:grid;gap:5px;margin-bottom:14px}
+.champ label{font-weight:600;font-size:15px}
+.champ input{border:1.5px solid var(--ligne);border-radius:10px;padding:11px 13px;background:#fff}
+.champ textarea{border:1.5px solid var(--ligne);border-radius:10px;padding:11px 13px;background:#fff;resize:vertical}
+.champ textarea:focus{border-color:var(--vert);outline:none;box-shadow:0 0 0 3px var(--vert-clair)}
+.champ input:focus{border-color:var(--vert);outline:none;box-shadow:0 0 0 3px var(--vert-clair)}
+.choix{display:flex;flex-wrap:wrap;gap:8px}
+.choix input{position:absolute;opacity:0}
+.choix label{border:1.5px solid var(--ligne);border-radius:10px;padding:8px 13px;cursor:pointer;font-weight:600;font-size:15px}
+.choix input:checked+label{border-color:var(--vert);background:var(--vert-clair);color:var(--vert)}
+.choix input:focus-visible+label{outline:3px solid var(--jaune);outline-offset:2px}
+.fermer{float:right;background:none;border:0;font-size:26px;cursor:pointer;color:var(--gris);line-height:1}
+.erreur{color:var(--rouge);font-size:14.5px;min-height:1.3em;margin-bottom:8px}
+.fin{font-size:13.5px;color:var(--gris);margin-top:12px}
+
+@media (max-width:860px){
+  nav{display:none}
+  .produit{grid-template-columns:1fr;gap:22px;padding-top:22px}
+  .achat{position:static}
+  .couverture{padding:20px}
+  .barre{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:5;background:#fff;border-top:1px solid var(--ligne);padding:10px 16px;align-items:center;gap:14px}
+  .barre .prix{font-size:24px}
+  .barre .btn{width:auto;flex:1;padding:12px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#haut" id="nom-boutique"><i></i><span></span></a>
+    <nav aria-label="Navigation principale">
+      <a href="#apercu">Aperçu</a>
+      <a href="#comment">Comment acheter</a>
+      <a href="#avis">Avis</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="haut">
+  <div class="produit">
+    <div>
+      <div class="couverture" id="couverture"></div>
+      <h1 id="p-titre"></h1>
+      <div class="note"><span class="pastille" id="p-note"></span><span id="p-avis"></span></div>
+      <div class="meta" id="p-meta"></div>
+
+      <section id="apercu" style="padding-bottom:10px">
+        <h2>À propos de ce produit</h2>
+        <div class="texte" id="p-desc"></div>
+      </section>
+
+      <section>
+        <h2>Ce que vous recevez</h2>
+        <div class="contenu" id="p-contenu"></div>
+      </section>
+
+      <section>
+        <div class="apercu">
+          <div><strong id="f-nom"></strong><span id="f-info"></span></div>
+          <a href="#" id="f-apercu">Voir un aperçu gratuit</a>
+        </div>
+      </section>
+    </div>
+
+    <aside class="achat" aria-label="Acheter">
+      <div class="prix-ligne">
+        <span class="prix" id="a-prix"></span>
+        <span class="prix-barre" id="a-barre"></span>
+        <span class="remise" id="a-remise"></span>
+      </div>
+      <div style="height:18px"></div>
+      <button class="btn" data-acheter>Acheter maintenant</button>
+      <a class="btn second" id="a-wa" target="_blank" rel="noopener">Poser une question</a>
+      <ul id="a-liste"></ul>
+      <div class="paiements">
+        <p>Moyens de paiement disponibles</p>
+        <div class="puces" id="a-paiements"></div>
+      </div>
+    </aside>
+  </div>
+
+  <section id="comment">
+    <h2>Comment acheter ?</h2>
+    <ol class="etapes">
+      <li>Cliquez sur « Acheter maintenant » et renseignez votre nom, votre téléphone et votre e-mail.</li>
+      <li>Choisissez votre moyen de paiement et validez la commande.</li>
+      <li>Réglez le montant. Dès la confirmation, le lien de téléchargement vous est envoyé.</li>
+      <li>Téléchargez le fichier et gardez-le sur votre téléphone ou votre ordinateur.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>À propos du vendeur</h2>
+    <div class="vendeur">
+      <div class="avatar" id="v-initiale"></div>
+      <div>
+        <h3 id="v-nom"></h3>
+        <p id="v-bio" class="texte"></p>
+        <div class="stats" id="v-stats"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="avis">
+    <h2>Avis des clients</h2>
+    <div class="avis-grille" id="avis-liste"></div>
+  </section>
+
+  <section>
+    <h2>Autres produits qui pourraient vous intéresser</h2>
+    <div class="autres" id="autres"></div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="liens">
+      <a href="#haut">Accueil</a>
+      <a href="#comment">Aide</a>
+      <a id="f-contact" target="_blank" rel="noopener" href="#">Contact WhatsApp (Togo)</a>
+      <a id="f-contact2" target="_blank" rel="noopener" href="#">Contact WhatsApp (Ghana)</a>
+      <a href="#">Mentions légales</a>
+      <a href="#">Conditions d'utilisation</a>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#" id="lien-admin">Administration</a>
+    </div>
+    <p>Ce site n'est affilié ni à Facebook ni à Meta. Les informations fournies sont données à titre informatif et ne constituent pas un conseil professionnel ou financier.</p>
+    <p style="margin-top:10px" id="f-copy"></p>
+  </div>
+</footer>
+
+<div class="barre">
+  <span class="prix" id="b-prix"></span>
+  <button class="btn" data-acheter>Acheter maintenant</button>
+</div>
+
+<dialog id="commande" aria-labelledby="m-titre">
+  <div class="modale">
+    <button class="fermer" id="m-fermer" aria-label="Fermer">×</button>
+    <h2 id="m-titre">Finaliser la commande</h2>
+    <p class="recap" id="m-recap"></p>
+    <form id="m-form" novalidate>
+      <div class="champ"><label for="m-nom">Nom complet</label><input id="m-nom" autocomplete="name" required></div>
+      <div class="champ"><label for="m-tel">Téléphone (avec l'indicatif)</label><input id="m-tel" type="tel" autocomplete="tel" placeholder="+228 90 00 00 00" required></div>
+      <div class="champ"><label for="m-mail">E-mail pour recevoir le fichier</label><input id="m-mail" type="email" autocomplete="email" required></div>
+      <div class="champ"><label>Moyen de paiement</label><div class="choix" id="m-choix"></div></div>
+      <p class="erreur" id="m-erreur" role="alert"></p>
+      <button class="btn" type="submit">Envoyer ma commande</button>
+      <p class="fin">Votre commande est envoyée au vendeur sur WhatsApp, qui vous indique comment payer et vous livre le fichier.</p>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="admin-login" aria-labelledby="al-titre">
+  <div class="modale">
+    <button class="fermer" id="al-fermer" aria-label="Fermer">×</button>
+    <h2 id="al-titre">Espace administrateur</h2>
+    <p class="recap">Connectez-vous pour modifier votre boutique.</p>
+    <form id="al-form" novalidate>
+      <div class="champ"><label for="al-user">Identifiant</label><input id="al-user" autocomplete="username"></div>
+      <div class="champ"><label for="al-pass">Mot de passe</label><input id="al-pass" type="password" autocomplete="current-password"></div>
+      <p class="erreur" id="al-erreur" role="alert"></p>
+      <button class="btn" type="submit">Se connecter</button>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="admin-panel" aria-labelledby="ap-titre">
+  <div class="modale">
+    <button class="fermer" id="ap-fermer" aria-label="Fermer">×</button>
+    <h2 id="ap-titre">Gérer la boutique</h2>
+    <p class="recap">Connecté en tant que Naudem. Les changements sont enregistrés dans ce navigateur.</p>
+    <form id="ap-form" novalidate>
+      <div class="champ"><label for="ad-titre">Titre du produit</label><input id="ad-titre"></div>
+      <div class="champ"><label for="ad-couv">Texte de la couverture</label><input id="ad-couv"></div>
+      <div class="champ"><label for="ad-img">Adresse de l'image de couverture (facultatif)</label><input id="ad-img" type="url" placeholder="https://..."></div>
+      <div class="champ"><label for="ad-pn">Prix normal (nombre)</label><input id="ad-pn" type="number" min="0"></div>
+      <div class="champ"><label for="ad-p">Prix de vente (nombre)</label><input id="ad-p" type="number" min="0"></div>
+      <div class="champ"><label for="ad-desc">Description (une ligne vide sépare les paragraphes)</label><textarea id="ad-desc" rows="6"></textarea></div>
+      <div class="champ"><label for="ad-wa">Numéro WhatsApp (chiffres uniquement, avec l'indicatif)</label><input id="ad-wa" inputmode="numeric"></div>
+      <div class="champ"><label for="ad-vn">Nom du vendeur</label><input id="ad-vn"></div>
+      <div class="champ"><label for="ad-vb">Présentation du vendeur</label><textarea id="ad-vb" rows="3"></textarea></div>
+      <p class="erreur" id="ap-erreur" role="alert"></p>
+      <button class="btn" type="submit">Enregistrer</button>
+      <button class="btn second" type="button" id="ap-reset">Revenir aux valeurs d'origine</button>
+      <button class="btn second" type="button" id="ap-deco">Se déconnecter</button>
+    </form>
+  </div>
+</dialog>
+
+<script>
+/* =====================================================
+   CONFIGURATION : modifiez uniquement ce bloc
+   ===================================================== */
+const BOUTIQUE = {
+  nom: "Ma Boutique Numérique",
+  whatsapp: "22899385669",           // numéro principal (Togo) : reçoit les commandes
+  whatsapp2: "233533539470",         // second numéro (Ghana) : proposé dans le pied de page
+  devise: "F CFA",
+  paiements: ["T-Money", "Flooz", "Orange Money", "MTN MoMo", "Wave", "Carte bancaire"],
+  vendeur: {
+    nom: "Nom du vendeur",
+    bio: "Présentez-vous en deux phrases : qui vous êtes, ce que vous vendez et pourquoi vos clients peuvent vous faire confiance.",
+    stats: ["Plus de 1 000 clients", "90 % d'avis positifs"]
+  },
+  produit: {
+    titre: "Pack de 100 recettes de cuisine",
+    couvertureTexte: "100 recettes faciles",
+    couvertureImage: "",              // collez l'adresse d'une image pour remplacer le motif
+    badge: "Fichier PDF",
+    prixNormal: 10300,
+    prix: 1500,
+    noteEnPourcent: 90,
+    nombreAvis: 12,
+    meta: [["Format", "PDF"], ["Pages", "120"], ["Taille", "8 Mo"], ["Livraison", "Immédiate"]],
+    description: [
+      "Un guide pratique pour préparer chaque jour des repas variés sans se creuser la tête.",
+      "Chaque recette indique les ingrédients, les quantités, le temps de préparation et les étapes, pour cuisiner même sans expérience."
+    ],
+    contenu: [
+      ["Recettes classiques", "Les plats du quotidien, expliqués pas à pas."],
+      ["Menus de la semaine", "Des idées pour planifier vos repas et gagner du temps."],
+      ["Astuces de cuisine", "Conservation, cuissons et petites économies."]
+    ],
+    avantages: ["Téléchargement immédiat", "Lisible sur téléphone, tablette et ordinateur", "Aperçu gratuit avant achat", "Paiement par Mobile Money"],
+    fichier: { nom: "Livre complet - 100 recettes", info: "8 Mo • 120 pages", lienApercu: "#" }
+  },
+  /* Ces avis sont des exemples : remplacez-les par de vrais avis clients */
+  avis: [
+    { nom: "Prénom N.", date: "il y a 2 jours", etoiles: 5, texte: "Exemple d'avis : très complet et facile à suivre." },
+    { nom: "Prénom N.", date: "il y a 1 semaine", etoiles: 4, texte: "Exemple d'avis : de bonnes idées pour mes menus." },
+    { nom: "Prénom N.", date: "il y a 3 semaines", etoiles: 5, texte: "Exemple d'avis : bon rapport qualité-prix." }
+  ],
+  autres: [
+    { titre: "Guide pour lancer son activité", prix: 5150, normal: 12000, note: 78, avis: 6, couleur: "#1F6F8B" },
+    { titre: "Formation vidéo pour débutants", prix: 2575, normal: 25750, note: 70, avis: 5, couleur: "#7A3E9D" },
+    { titre: "Modèles de documents prêts à l'emploi", prix: 1133, normal: 10300, note: 80, avis: 9, couleur: "#B5541C" }
+  ]
+};
+/* ===================================================== */
+
+/* Identifiants administrateur.
+   Attention : ils sont lisibles dans le code de la page. Ce verrou protège
+   seulement le formulaire de modification, pas un vrai serveur. */
+const ADMIN = { identifiant: "Naudem", motDePasse: "Naudem007@" };
+
+/* Modifications enregistrées par l'administrateur (dans ce navigateur) */
+const CLE = "boutique-modifs";
+const lire = () => { try { return JSON.parse(localStorage.getItem(CLE)) || null; } catch (e) { return null; } };
+const ORIGINE = JSON.parse(JSON.stringify({ produit: BOUTIQUE.produit, vendeur: BOUTIQUE.vendeur, whatsapp: BOUTIQUE.whatsapp }));
+(function appliquer() {
+  const m = lire();
+  if (!m) return;
+  const p = BOUTIQUE.produit;
+  if (m.titre) p.titre = m.titre;
+  if (m.couv) p.couvertureTexte = m.couv;
+  p.couvertureImage = m.img || "";
+  if (m.pn > 0) p.prixNormal = m.pn;
+  if (m.p >= 0 && m.p !== null) p.prix = m.p;
+  if (m.desc) p.description = m.desc.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+  if (m.wa) BOUTIQUE.whatsapp = m.wa;
+  if (m.vn) BOUTIQUE.vendeur.nom = m.vn;
+  if (m.vb) BOUTIQUE.vendeur.bio = m.vb;
+})();
+
+const $ = id => document.getElementById(id);
+const fmt = n => new Intl.NumberFormat("fr-FR").format(n).replace(/\u202f|\u00a0/g, " ") + " " + BOUTIQUE.devise;
+const P = BOUTIQUE.produit;
+const remise = Math.round((1 - P.prix / P.prixNormal) * 100);
+
+document.title = P.titre + " | " + BOUTIQUE.nom;
+$("nom-boutique").querySelector("span").textContent = BOUTIQUE.nom;
+
+/* Couverture */
+const cv = $("couverture");
+if (P.couvertureImage) {
+  cv.innerHTML = '<img alt="">';
+  cv.firstChild.src = P.couvertureImage;
+} else {
+  cv.innerHTML = `<svg class="motif" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><pattern id="mot" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M0 25 L25 0 L50 25 L25 50Z" fill="none" stroke="#F5B82E" stroke-opacity=".35" stroke-width="2"/>
+      <circle cx="25" cy="25" r="5" fill="#F5B82E" fill-opacity=".5"/></pattern></defs>
+    <rect width="400" height="250" fill="url(#mot)"/>
+    <rect width="400" height="250" fill="#0E4D3A" fill-opacity=".55"/></svg>
+    <div class="titre"></div>`;
+  cv.querySelector(".titre").textContent = P.couvertureTexte;
+}
+cv.insertAdjacentHTML("beforeend", '<span class="badge"></span>');
+cv.querySelector(".badge").textContent = P.badge;
+
+/* Produit */
+$("p-titre").textContent = P.titre;
+$("p-note").textContent = P.noteEnPourcent + " %";
+$("p-avis").textContent = P.nombreAvis + " avis";
+$("p-meta").innerHTML = P.meta.map(([k, v]) => `<span>${k} : <strong>${v}</strong></span>`).join("");
+$("p-desc").innerHTML = P.description.map(t => `<p>${t}</p>`).join("");
+$("p-contenu").innerHTML = P.contenu.map(([t, d]) => `<div><h3>${t}</h3><p>${d}</p></div>`).join("");
+$("f-nom").textContent = P.fichier.nom;
+$("f-info").textContent = P.fichier.info;
+$("f-apercu").href = P.fichier.lienApercu;
+
+/* Achat */
+$("a-prix").textContent = fmt(P.prix);
+$("a-barre").textContent = fmt(P.prixNormal);
+$("a-remise").textContent = "-" + remise + " %";
+$("b-prix").textContent = fmt(P.prix);
+$("a-liste").innerHTML = P.avantages.map(a => `<li>${a}</li>`).join("");
+$("a-paiements").innerHTML = BOUTIQUE.paiements.map(p => `<span class="puce">${p}</span>`).join("");
+const wa = txt => `https://wa.me/${BOUTIQUE.whatsapp}?text=${encodeURIComponent(txt)}`;
+$("a-wa").href = wa(`Bonjour, j'ai une question sur : ${P.titre}`);
+$("f-contact").href = wa("Bonjour, j'ai besoin d'aide.");
+if (BOUTIQUE.whatsapp2) $("f-contact2").href = `https://wa.me/${BOUTIQUE.whatsapp2}?text=${encodeURIComponent("Bonjour, j'ai besoin d'aide.")}`;
+else $("f-contact2").remove();
+
+/* Vendeur */
+$("v-initiale").textContent = BOUTIQUE.vendeur.nom.charAt(0).toUpperCase();
+$("v-nom").textContent = BOUTIQUE.vendeur.nom;
+$("v-bio").textContent = BOUTIQUE.vendeur.bio;
+$("v-stats").innerHTML = BOUTIQUE.vendeur.stats.map(s => `<span>${s}</span>`).join("");
+
+/* Avis */
+$("avis-liste").innerHTML = BOUTIQUE.avis.map(a => `
+  <article class="avis">
+    <header><b>${a.nom}</b><span>${a.date}</span></header>
+    <div class="etoiles" aria-label="${a.etoiles} sur 5">${"★".repeat(a.etoiles)}${"☆".repeat(5 - a.etoiles)}</div>
+    <p>${a.texte}</p>
+  </article>`).join("");
+
+/* Autres produits */
+$("autres").innerHTML = BOUTIQUE.autres.map(o => `
+  <a class="mini" href="#haut">
+    <div class="vignette" style="background:${o.couleur}">${o.titre}</div>
+    <div class="corps">
+      <h3>${o.titre}</h3>
+      <div class="note"><span class="pastille">${o.note} %</span>${o.avis} avis</div>
+      <div class="prix-ligne"><b>${fmt(o.prix)}</b><span class="prix-barre" style="font-size:15px">${fmt(o.normal)}</span></div>
+    </div>
+  </a>`).join("");
+
+$("f-copy").textContent = "© " + new Date().getFullYear() + " " + BOUTIQUE.nom + ". Tous droits réservés.";
+
+/* Commande */
+const dlg = $("commande");
+$("m-recap").textContent = `${P.titre} : ${fmt(P.prix)}`;
+$("m-choix").innerHTML = BOUTIQUE.paiements.map((p, i) =>
+  `<span><input type="radio" name="pay" id="pay${i}" value="${p}" ${i === 0 ? "checked" : ""}><label for="pay${i}">${p}</label></span>`).join("");
+document.querySelectorAll("[data-acheter]").forEach(b => b.addEventListener("click", () => { $("m-erreur").textContent = ""; dlg.showModal(); $("m-nom").focus(); }));
+$("m-fermer").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+
+$("m-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const nom = $("m-nom").value.trim(), tel = $("m-tel").value.trim(), mail = $("m-mail").value.trim();
+  const pay = document.querySelector('input[name="pay"]:checked').value;
+  if (!nom) return $("m-erreur").textContent = "Indiquez votre nom complet.";
+  if (tel.replace(/\D/g, "").length < 8) return $("m-erreur").textContent = "Indiquez un numéro de téléphone valide avec l'indicatif.";
+  if (!/^\S+@\S+\.\S+$/.test(mail)) return $("m-erreur").textContent = "Indiquez une adresse e-mail valide.";
+  const msg = `Nouvelle commande\nProduit : ${P.titre}\nMontant : ${fmt(P.prix)}\nPaiement : ${pay}\nNom : ${nom}\nTéléphone : ${tel}\nE-mail : ${mail}`;
+  window.open(wa(msg), "_blank", "noopener");
+  dlg.close();
+  e.target.reset();
+});
+
+/* Administration */
+const login = $("admin-login"), panel = $("admin-panel");
+$("lien-admin").addEventListener("click", e => { e.preventDefault(); $("al-erreur").textContent = ""; login.showModal(); $("al-user").focus(); });
+$("al-fermer").addEventListener("click", () => login.close());
+$("ap-fermer").addEventListener("click", () => panel.close());
+[login, panel].forEach(d => d.addEventListener("click", e => { if (e.target === d) d.close(); }));
+
+$("al-form").addEventListener("submit", e => {
+  e.preventDefault();
+  if ($("al-user").value.trim() !== ADMIN.identifiant || $("al-pass").value !== ADMIN.motDePasse) {
+    $("al-erreur").textContent = "Identifiant ou mot de passe incorrect.";
+    return;
+  }
+  e.target.reset();
+  login.close();
+  const p = BOUTIQUE.produit;
+  $("ad-titre").value = p.titre;
+  $("ad-couv").value = p.couvertureTexte;
+  $("ad-img").value = p.couvertureImage || "";
+  $("ad-pn").value = p.prixNormal;
+  $("ad-p").value = p.prix;
+  $("ad-desc").value = p.description.join("\n\n");
+  $("ad-wa").value = BOUTIQUE.whatsapp;
+  $("ad-vn").value = BOUTIQUE.vendeur.nom;
+  $("ad-vb").value = BOUTIQUE.vendeur.bio;
+  $("ap-erreur").textContent = "";
+  panel.showModal();
+});
+
+$("ap-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const pn = Number($("ad-pn").value), p = Number($("ad-p").value);
+  if (!$("ad-titre").value.trim()) return $("ap-erreur").textContent = "Le titre du produit est obligatoire.";
+  if (!(pn > 0) || !(p >= 0)) return $("ap-erreur").textContent = "Indiquez un prix normal et un prix de vente valides.";
+  if (p > pn) return $("ap-erreur").textContent = "Le prix de vente doit être inférieur ou égal au prix normal.";
+  const modifs = {
+    titre: $("ad-titre").value.trim(), couv: $("ad-couv").value.trim(), img: $("ad-img").value.trim(),
+    pn, p, desc: $("ad-desc").value.trim(), wa: $("ad-wa").value.replace(/\D/g, ""),
+    vn: $("ad-vn").value.trim(), vb: $("ad-vb").value.trim()
+  };
+  try { localStorage.setItem(CLE, JSON.stringify(modifs)); }
+  catch (err) { return $("ap-erreur").textContent = "Impossible d'enregistrer dans ce navigateur. Ouvrez la page depuis votre site hébergé."; }
+  location.reload();
+});
+
+$("ap-reset").addEventListener("click", () => {
+  try { localStorage.removeItem(CLE); } catch (err) {}
+  location.reload();
+});
+$("ap-deco").addEventListener("click", () => panel.close());
+</script>
+</body>
+</html>
